@@ -1,0 +1,31 @@
+$$ The code can run on both GPU and CPU
+
+By default it is set to run on CPU
+To run the code on the terminal type:
+make -f makefileCPU
+______________________________________________
+
+$$ Running the code on GPU -->
+Open the param.h file in the src folder
+Comment out the #define UseCPU and Uncomment #define UseGPU
+
+Inorder to run the code on GPU type in the terminal:
+make -f filename makefileGPU
+______________________________________________
+
+Note: The makefile has to be modified inorder to run on 
+different GPU cards based on Compute capability of the 
+device
+
+To change the compute capability -->
+Open the makefileGPU file
+Whereever there is the -arch sm_30 flag it means -
+using compute capability 3.0
+
+so, example inorder to use a device with compute capability 2.0
+change sm_30 to sm_20
+
+$$ The GPU code with -arch sm_30 is tested on NVIDIA Tesla k20 and Quadro k5000
+
+$$ The GPU code with -arch sm_20 is tested on NVIDIA GeForce GT 540M
+_________________________________________________________________________________

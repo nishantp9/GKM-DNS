@@ -1,0 +1,24 @@
+UNAME := $(shell uname)
+
+Main.out: Main.o FlowField.o CPUupdate.o GKMflux.o param.o
+	g++ -O3 -o Main.out obj/Main.o obj/FlowField.o obj/CPUupdate.o obj/GKMflux.o obj/param.o
+
+Main.o: src/Main.cpp src/FlowField.h src/CPUupdate.h src/param.h
+	g++ -O3 -c src/Main.cpp -o obj/Main.o 
+	
+FlowField.o: src/FlowField.cpp src/param.h
+	g++ -O3 -c src/FlowField.cpp -o obj/FlowField.o 
+	
+CPUupdate.o: src/CPUupdate.cpp src/CPUupdate.h src/GKMflux.h src/param.h
+	g++ -O3 -c src/CPUupdate.cpp -o obj/CPUupdate.o
+
+GKMflux.o: src/GKMflux.cpp src/GKMflux.h src/param.h
+	g++ -O3 -c src/GKMflux.cpp -o obj/GKMflux.o
+	
+param.o: src/param.cpp
+	g++ -O3 -c src/param.cpp -o obj/param.o
+	
+clean:
+	rm -i obj/*.o
+
+

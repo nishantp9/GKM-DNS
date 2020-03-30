@@ -1,0 +1,16 @@
+UNAME := $(shell uname)
+
+Main.out: Main.o FlowField.o GPUupdate.o param.o
+	nvcc -O3 -o Main.out obj/Main.o obj/FlowField.o obj/GPUupdate.o obj/param.o -arch sm_21
+
+Main.o: src/Main.cpp src/FlowField.h src/GPUupdate.h src/param.h
+	g++ -O3 -c src/Main.cpp -o obj/Main.o
+	
+FlowField.o: src/FlowField.cpp src/param.h
+	g++ -O3 -c src/FlowField.cpp -o obj/FlowField.o 
+	
+GPUupdate.o: src/GPUupdate.cu src/GPUupdate.h src/param.h
+	nvcc -O3 -c src/GPUupdate.cu -o obj/GPUupdate.o -arch sm_21
+	
+param.o: src/param.cpp
+	g++ -O3 -c src/param.cpp -o obj/param.o
